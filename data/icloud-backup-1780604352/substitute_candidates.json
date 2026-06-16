@@ -1,0 +1,62 @@
+[
+  {
+    "original_part_number": "ENCJK",
+    "part_number": "ENCJK",
+    "manufacturer": "nVent Hoffman",
+    "description": "Seismic Cabinet Joining Kit, Black, Steel",
+    "vendor": "Grainger",
+    "match_percent": 100,
+    "stock_status": "In Stock",
+    "condition": "New",
+    "product_link": "https://www.grainger.com/",
+    "specifications": {
+      "catalog_number": "ENCJK",
+      "product_type": "Seismic Cabinet Joining Kit",
+      "color": "Black",
+      "material": "Steel"
+    },
+    "notes": [
+      "Same part number candidate from an approved vendor fixture."
+    ]
+  },
+  {
+    "original_part_number": "ENCJK",
+    "part_number": "ENCJK-USED",
+    "manufacturer": "nVent Hoffman",
+    "description": "Used seismic cabinet joining kit",
+    "vendor": "Grainger",
+    "match_percent": 92,
+    "stock_status": "In Stock",
+    "condition": "Used",
+    "product_link": "https://www.grainger.com/",
+    "specifications": {
+      "catalog_number": "ENCJK-USED",
+      "product_type": "Seismic Cabinet Joining Kit",
+      "color": "Black",
+      "material": "Steel"
+    },
+    "notes": [
+      "This fixture should be rejected because condition is Used."
+    ]
+  },
+  {
+    "original_part_number": "ENCJK",
+    "part_number": "ENCJK-ALT",
+    "manufacturer": "Example Manufacturer",
+    "description": "Example low-confidence joining kit",
+    "vendor": "Amazon",
+    "match_percent": 65,
+    "stock_status": "In Stock",
+    "condition": "New",
+    "product_link": "https://www.amazon.com/",
+    "specifications": {
+      "catalog_number": "ENCJK-ALT",
+      "product_type": "Cabinet Joining Kit",
+      "color": "Black",
+      "material": "Steel"
+    },
+    "notes": [
+      "This fixture should be rejected because vendor is not approved and match is below threshold."
+    ]
+  }
+]

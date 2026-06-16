@@ -1,0 +1,24 @@
+[
+  {
+    "original_part_number": "ENCJK",
+    "part_number": "ENCJK",
+    "manufacturer": "nVent Hoffman",
+    "description": "Seismic Cabinet Joining Kit, Black, Steel",
+    "vendor": "Grainger",
+    "match_percent": 100,
+    "stock_status": "In Stock",
+    "condition": "New",
+    "product_link": "https://www.grainger.com/",
+    "specifications": {
+      "material": "Steel",
+      "color": "Black",
+      "finish": "Powder Coated",
+      "product_type": "Seismic Cabinet Joining Kit"
+    },
+    "notes": [
+      "Approved vendor",
+      "New condition",
+      "Exact part number match"
+    ]
+  }
+]

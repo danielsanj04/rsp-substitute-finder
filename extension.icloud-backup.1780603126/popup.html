@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RSP PartMatch AI</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="popup-shell">
+      <header class="app-header">
+        <div>
+          <p class="eyebrow">RSP Supply</p>
+          <h1>PartMatch AI</h1>
+        </div>
+        <span class="status-dot" title="Local API"></span>
+      </header>
+
+      <form id="searchForm" class="search-form">
+        <label for="partInput">Part number, manufacturer, or details</label>
+        <textarea
+          id="partInput"
+          name="partInput"
+          rows="3"
+          placeholder="Example: ENCJK nVent Hoffman"
+          autocomplete="off"
+          autofocus
+        ></textarea>
+        <button id="searchButton" type="submit">Find approved match</button>
+      </form>
+
+      <section id="message" class="message hidden" aria-live="polite"></section>
+      <section id="results" class="results hidden"></section>
+    </main>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
