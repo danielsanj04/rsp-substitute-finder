@@ -5,3 +5,8 @@ __pycache__/
 venv/
 node_modules/
 .DS_Store
+
+# Browser extension packaged artifacts / signing keys
+*.zip
+*.crx
+*.pem

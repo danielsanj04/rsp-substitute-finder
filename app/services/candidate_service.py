@@ -23,7 +23,17 @@ def load_substitute_candidates() -> list[dict]:
     raise ValueError("substitute_candidates.json must contain a JSON list of candidates")
 
 
+def find_valid_original_stock_options(original_part_number: str) -> list[SubstitutePart]:
+    """Return approved same-part stock options for the exact original part."""
+    return _find_valid_candidates(original_part_number, same_part=True)
+
+
 def find_valid_substitute_candidates(original_part_number: str) -> list[SubstitutePart]:
+    """Return approved true substitutes with a different part number."""
+    return _find_valid_candidates(original_part_number, same_part=False)
+
+
+def _find_valid_candidates(original_part_number: str, *, same_part: bool) -> list[SubstitutePart]:
     normalized_original_part_number = original_part_number.strip().lower()
     valid_candidates: list[SubstitutePart] = []
 
@@ -33,7 +43,8 @@ def find_valid_substitute_candidates(original_part_number: str) -> list[Substitu
             continue
 
         candidate_part_number = str(candidate.get("part_number", "")).strip().lower()
-        if candidate_part_number != normalized_original_part_number:
+        candidate_is_same_part = candidate_part_number == normalized_original_part_number
+        if candidate_is_same_part != same_part:
             continue
 
         if not is_approved_vendor(str(candidate.get("vendor", ""))):

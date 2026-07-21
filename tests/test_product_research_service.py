@@ -8,7 +8,7 @@ def test_research_original_part_returns_structured_placeholder_for_unknown_produ
     original_part = research_original_part(request)
 
     assert original_part.part_number == "A20H1608SSLP"
-    assert original_part.manufacturer == "Hoffman"
+    assert original_part.manufacturer == "nVent Hoffman"
     assert original_part.specifications == {}
     assert original_part.source_link is None
 

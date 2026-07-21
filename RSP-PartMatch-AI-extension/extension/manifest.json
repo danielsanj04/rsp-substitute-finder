@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "RSP PartMatch AI",
+  "description": "Quickly find approved replacement/substitute parts for RSP Supply workflows.",
+  "version": "0.1.0",
+  "action": {
+    "default_title": "RSP PartMatch AI",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1:8000/*",
+    "http://127.0.0.1:8011/*"
+  ]
+}

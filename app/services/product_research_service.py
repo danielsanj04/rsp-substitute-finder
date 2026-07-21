@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 
 from app.api.schemas.substitutes import OriginalPart, SubstituteRequest
+from app.services.query_parser import parse_search_input
 
 APP_ROOT = Path(__file__).resolve().parents[2]
 ORIGINAL_PRODUCTS_PATH = APP_ROOT / "data" / "original_products.json"
@@ -56,17 +57,22 @@ def research_original_part(request: SubstituteRequest) -> OriginalPart:
     vendor/manufacturer searches, scraping, or AI-assisted extraction to fill in
     real product specifications and source links.
     """
-    fixture_product = find_original_product_fixture(
+    parsed_input = parse_search_input(
         part_number=request.part_number,
         manufacturer=request.manufacturer,
+        product_details=request.product_details,
+    )
+    fixture_product = find_original_product_fixture(
+        part_number=parsed_input.part_number,
+        manufacturer=parsed_input.manufacturer,
     )
 
     if fixture_product:
         return fixture_product
 
     return OriginalPart(
-        part_number=_clean(request.part_number) or UNKNOWN_PART_NUMBER,
-        manufacturer=_clean(request.manufacturer),
+        part_number=parsed_input.part_number or UNKNOWN_PART_NUMBER,
+        manufacturer=parsed_input.manufacturer,
         description=_unknown_product_description(request),
         specifications={},
         source_link=None,

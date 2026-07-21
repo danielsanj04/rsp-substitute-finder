@@ -30,6 +30,9 @@ class SearchMetadata(BaseModel):
     submitted_part_number: str | None = None
     submitted_manufacturer: str | None = None
     submitted_product_details: str | None = None
+    parsed_part_number: str | None = None
+    parsed_manufacturer: str | None = None
+    parsed_keywords: list[str] = Field(default_factory=list)
     query_text: str
 
 
@@ -73,9 +76,18 @@ class ApprovedVendorListResponse(BaseModel):
 class SubstituteResponse(BaseModel):
     search: SearchMetadata
     original_part: OriginalPart
-    substitutes: list[SubstitutePart]
+    original_stock_options: list[SubstitutePart] = Field(default_factory=list)
+    substitute_options: list[SubstitutePart] = Field(default_factory=list)
+    substitutes: list[SubstitutePart] = Field(
+        default_factory=list,
+        description="Backward-compatible alias for substitute_options.",
+    )
     comparison_table: list[ComparisonRow] = Field(default_factory=list)
-    recommendation_status: Literal["matches_found", "no_approved_substitute_found"]
+    recommendation_status: Literal[
+        "original_stock_found",
+        "substitutes_found",
+        "no_approved_substitute_found",
+    ]
     customer_ready_response: str
     sales_email_summary: str = Field(
         ...,
