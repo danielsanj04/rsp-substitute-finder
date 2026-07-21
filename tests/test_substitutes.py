@@ -20,6 +20,9 @@ def test_substitutes_placeholder_response_for_unknown_product():
     assert body["original_stock_options"] == []
     assert body["substitute_options"] == []
     assert body["recommendation_status"] == "no_approved_substitute_found"
+    assert body["customer_ready_response"].startswith(
+        "Unfortunately, I cannot find part number A20H1608SSLP from vendor nVent Hoffman."
+    )
     assert body["customer_ready_response"] == body["sales_email_summary"]
 
 

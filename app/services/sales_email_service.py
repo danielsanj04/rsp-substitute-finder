@@ -33,10 +33,14 @@ def build_sales_email_summary(
         )
 
     return (
-        f"Hi, I researched {part_label}, but I do not currently have an approved "
-        "substitute recommendation available. I will continue checking approved sources "
-        "and follow up if a suitable new-condition option is found."
+        f"Unfortunately, I cannot find part number {original_part.part_number} "
+        f"from vendor {_vendor_label(original_part)}. I checked approved sources and "
+        "do not currently have a new in-stock substitute recommendation available."
     )
+
+
+def _vendor_label(part: OriginalPart) -> str:
+    return part.manufacturer or "Unknown"
 
 
 def _part_label(part: OriginalPart | SubstitutePart) -> str:

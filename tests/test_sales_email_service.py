@@ -22,9 +22,12 @@ def test_build_sales_email_summary_with_substitute():
     assert "In Stock" in summary
 
 
-def test_build_sales_email_summary_without_substitute():
-    original = OriginalPart(part_number="UNKNOWN", manufacturer="Example")
+def test_build_sales_email_summary_without_substitute_uses_required_no_match_wording():
+    original = OriginalPart(part_number="A20H1608SSLP", manufacturer="Hoffman")
 
     summary = build_sales_email_summary(original, [])
 
-    assert "do not currently have an approved substitute" in summary
+    assert summary.startswith(
+        "Unfortunately, I cannot find part number A20H1608SSLP from vendor Hoffman."
+    )
+    assert "approved sources" in summary
