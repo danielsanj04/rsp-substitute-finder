@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 
 from app.api.schemas.substitutes import SubstitutePart
+from app.services.link_validation_service import is_valid_product_link
 from app.services.vendor_service import is_approved_vendor
 
 APP_ROOT = Path(__file__).resolve().parents[2]
@@ -54,6 +55,9 @@ def _find_valid_candidates(original_part_number: str, *, same_part: bool) -> lis
             continue
 
         if int(candidate.get("match_percent", 0)) < MINIMUM_MATCH_PERCENT:
+            continue
+
+        if not is_valid_product_link(str(candidate.get("product_link", ""))):
             continue
 
         candidate_payload = {

@@ -7,7 +7,9 @@ from app.services.candidate_service import (
 )
 
 
-def test_find_valid_original_stock_options_returns_same_part_stock():
+def test_find_valid_original_stock_options_returns_same_part_stock(monkeypatch):
+    monkeypatch.setattr(candidate_service, "is_valid_product_link", lambda link: True)
+
     stock_options = find_valid_original_stock_options("ENCJK")
 
     assert len(stock_options) == 1
@@ -52,6 +54,7 @@ def test_find_valid_substitute_candidates_allows_different_part_number(tmp_path,
         encoding="utf-8",
     )
     monkeypatch.setattr(candidate_service, "SUBSTITUTE_CANDIDATES_PATH", candidates_path)
+    monkeypatch.setattr(candidate_service, "is_valid_product_link", lambda link: True)
 
     candidates = find_valid_substitute_candidates("ENCJK")
 
@@ -73,6 +76,36 @@ def test_find_valid_original_stock_options_excludes_different_part_number(tmp_pa
                     "match_percent": 95,
                     "stock_status": "In Stock",
                     "condition": "New",
+                    "product_link": "https://www.grainger.com/search?searchQuery=ENCJK",
+                    "specifications": {},
+                    "notes": [],
+                }
+            ]
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(candidate_service, "SUBSTITUTE_CANDIDATES_PATH", candidates_path)
+    monkeypatch.setattr(candidate_service, "is_valid_product_link", lambda link: True)
+
+    stock_options = find_valid_original_stock_options("ENCJK")
+
+    assert stock_options == []
+
+
+def test_find_valid_original_stock_options_excludes_invalid_product_links(tmp_path, monkeypatch):
+    candidates_path = tmp_path / "substitute_candidates.json"
+    candidates_path.write_text(
+        json.dumps(
+            [
+                {
+                    "original_part_number": "ENCJK",
+                    "part_number": "ENCJK",
+                    "manufacturer": "nVent Hoffman",
+                    "description": "Seismic Cabinet Joining Kit, Black, Steel",
+                    "vendor": "Grainger",
+                    "match_percent": 100,
+                    "stock_status": "In Stock",
+                    "condition": "New",
                     "product_link": "https://www.grainger.com/",
                     "specifications": {},
                     "notes": [],
@@ -82,6 +115,7 @@ def test_find_valid_original_stock_options_excludes_different_part_number(tmp_pa
         encoding="utf-8",
     )
     monkeypatch.setattr(candidate_service, "SUBSTITUTE_CANDIDATES_PATH", candidates_path)
+    monkeypatch.setattr(candidate_service, "is_valid_product_link", lambda link: False)
 
     stock_options = find_valid_original_stock_options("ENCJK")
 
